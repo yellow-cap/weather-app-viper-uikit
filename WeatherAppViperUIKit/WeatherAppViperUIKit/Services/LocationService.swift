@@ -17,17 +17,10 @@ class LocationService: NSObject, CLLocationManagerDelegate {
 
     func initialize() {
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestAlwaysAuthorization()
         locationManager.pausesLocationUpdatesAutomatically = false
         locationManager.delegate = self
-    }
 
-    func startUpdatingLocation() {
-        locationManager.startUpdatingLocation()
-    }
-
-    func stopUpdatingLocation() {
-        locationManager.stopUpdatingLocation()
+        checkLocationServicesPermission()
     }
 
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
@@ -40,10 +33,10 @@ class LocationService: NSObject, CLLocationManagerDelegate {
             locationManager.requestAlwaysAuthorization()
         case .authorizedAlways:
             print("Access to location granted. Always.")
-            startUpdatingLocation()
+            locationManager.startUpdatingLocation()
         case .authorizedWhenInUse:
             print("Access to location granted. When app in use.")
-            startUpdatingLocation()
+            locationManager.startUpdatingLocation()
         default:
             print("Unhandled error occurred.")
         }
@@ -59,9 +52,24 @@ class LocationService: NSObject, CLLocationManagerDelegate {
     }
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        stopUpdatingLocation()
+        locationManager.stopUpdatingLocation()
 
         onLocationChangeFail(error: error)
+    }
+
+    private func checkLocationServicesPermission() {
+        if CLLocationManager.locationServicesEnabled() {
+            switch locationManager.authorizationStatus {
+            case .notDetermined:
+                locationManager.requestAlwaysAuthorization()
+            case .authorizedWhenInUse, .authorizedAlways:
+                locationManager.startUpdatingLocation()
+            default:
+                print("Access to location restricted. Check Location services settings.")
+            }
+        } else {
+            print("Location services is not enabled")
+        }
     }
 
     private func onLocationChangeSuccess(location: CLLocation) {
