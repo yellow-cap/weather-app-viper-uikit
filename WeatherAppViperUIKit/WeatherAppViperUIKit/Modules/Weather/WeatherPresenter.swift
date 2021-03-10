@@ -1,10 +1,11 @@
 import Foundation
+import CoreLocation
 
 protocol IWeatherPresenter: IPresenter {
     var interaction: IWeatherInteraction? { get set }
     var view: IWeatherView? { get set }
     func viewDidLoad()
-    func updateCurrentLocation(latitude: Double, longitude: Double)
+    func updateCurrentLocation(placeMark: CLPlacemark)
 }
 
 class WeatherPresenter: IWeatherPresenter {
@@ -16,7 +17,8 @@ class WeatherPresenter: IWeatherPresenter {
         interaction?.checkLocationServicesPermission()
     }
 
-    func updateCurrentLocation(latitude: Double, longitude: Double) {
-        view?.updateCurrentLocation(latitude: latitude, longitude: longitude)
+    func updateCurrentLocation(placeMark: CLPlacemark) {
+        let locationString = "\(placeMark.locality), \(placeMark.administrativeArea), \(placeMark.country)"
+        view?.updateCurrentLocation(location: locationString)
     }
 }

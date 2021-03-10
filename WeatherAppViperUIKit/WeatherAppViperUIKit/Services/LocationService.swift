@@ -5,7 +5,7 @@ import MapKit
 protocol LocationServiceDelegate {
     func onLocationChangeSuccess(location: CLLocation)
     func onLocationChangeFail(error: ServiceError)
-    func onGetPlaceMarkByLocationSuccess(placeMark: [CLPlacemark])
+    func onGetPlaceMarkByLocationSuccess(placeMark: CLPlacemark)
     func onGetPlaceMarkByLocationFail(error: ServiceError)
 }
 
@@ -108,7 +108,7 @@ class LocationService: NSObject, CLLocationManagerDelegate, ILocationService {
                     return
                 }
 
-                guard let placeMark = placeMark else {
+                guard let placeMark = placeMark, placeMark.last != nil else {
                     DispatchQueue.main.async {
                         self?.onGetPlaceMarkByLocationFail(
                                 ServiceError(
@@ -121,7 +121,7 @@ class LocationService: NSObject, CLLocationManagerDelegate, ILocationService {
                 }
 
                 DispatchQueue.main.async {
-                    self?.onGetPlaceMarkByLocationSuccess(placeMark)
+                    self?.onGetPlaceMarkByLocationSuccess(placeMark.last!)
                 }
             }
         }
@@ -143,7 +143,7 @@ class LocationService: NSObject, CLLocationManagerDelegate, ILocationService {
         delegate.onLocationChangeFail(error: error)
     }
 
-    private func onGetPlaceMarkByLocationSuccess(_ placeMark: [CLPlacemark]) {
+    private func onGetPlaceMarkByLocationSuccess(_ placeMark: CLPlacemark) {
         guard let delegate = delegate else {
             return
         }

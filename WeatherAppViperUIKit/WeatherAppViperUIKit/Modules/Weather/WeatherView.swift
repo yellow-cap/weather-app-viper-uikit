@@ -3,7 +3,7 @@ import UIKit
 
 protocol IWeatherView: IView {
     var presenter: IWeatherPresenter? { get set }
-    func updateCurrentLocation(latitude: Double, longitude: Double)
+    func updateCurrentLocation(location: String)
 }
 
 class WeatherView: UIViewController, IWeatherView {
@@ -22,12 +22,12 @@ class WeatherView: UIViewController, IWeatherView {
         presenter?.viewDidLoad()
     }
 
-    func updateCurrentLocation(latitude: Double, longitude: Double) {
-        weatherAppLabel.text = "Your coordinates: latitude: \(latitude), longitude: \(longitude)"
+    func updateCurrentLocation(location: String) {
+        weatherAppLabel.text = ("Location: \(location)")
     }
 
     private func initView() {
-        weatherAppLabel.text = "Your coordinates: latitude: -, longitude: -"
+        weatherAppLabel.text = "Location: "
         weatherAppLabel.textAlignment = .center
     }
 

@@ -25,14 +25,7 @@ class WeatherInteraction: IWeatherInteraction, LocationServiceDelegate {
     }
 
     func onLocationChangeSuccess(location: CLLocation) {
-        print("Current Location : \(location)")
-
         getPlaceMarkByLocation(location)
-
-        presenter?.updateCurrentLocation(
-                latitude: Double(location.coordinate.latitude),
-                longitude: Double(location.coordinate.longitude)
-        )
 
         do {
             let result = try weatherService.getWeatherForecastForLocation(location: location)
@@ -45,8 +38,8 @@ class WeatherInteraction: IWeatherInteraction, LocationServiceDelegate {
         print(error.message)
     }
 
-    func onGetPlaceMarkByLocationSuccess(placeMark: [CLPlacemark]) {
-        print(placeMark)
+    func onGetPlaceMarkByLocationSuccess(placeMark: CLPlacemark) {
+        presenter?.updateCurrentLocation(placeMark: placeMark)
     }
 
     func onGetPlaceMarkByLocationFail(error: ServiceError) {
