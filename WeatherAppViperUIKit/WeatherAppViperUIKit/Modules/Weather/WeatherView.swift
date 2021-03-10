@@ -86,7 +86,7 @@ class WeatherView: UIViewController, IWeatherView {
         currentTemperatureLabel.font = UIFont.systemFont(ofSize: 80.0, weight: .light)
         currentTemperatureLabel.isHidden = true
 
-        currentWeatherIcon.frame = CGRect(x: 0, y: 0, width: 80, height: 60)
+        currentWeatherIcon.frame = CGRect(x: 0, y: 0, width: 60, height: 60)
         currentWeatherIcon.isHidden = true
     }
 
@@ -167,7 +167,7 @@ class WeatherView: UIViewController, IWeatherView {
             currentWeatherIcon.leadingAnchor.constraint(equalTo: innerContainer.leadingAnchor),
             currentWeatherIcon.centerYAnchor.constraint(equalTo: currentTemperatureLabel.centerYAnchor),
 
-            currentTemperatureLabel.leadingAnchor.constraint(equalTo: currentWeatherIcon.trailingAnchor, constant: 12),
+            currentTemperatureLabel.leadingAnchor.constraint(equalTo: currentWeatherIcon.trailingAnchor),
             currentTemperatureLabel.trailingAnchor.constraint(equalTo: innerContainer.trailingAnchor)
         ])
     }
