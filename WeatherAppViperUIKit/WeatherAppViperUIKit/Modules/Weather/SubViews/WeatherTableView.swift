@@ -2,7 +2,7 @@ import UIKit
 
 class WeatherTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     private let cellReuseIdentifier = "weather_table_cell"
-    private let data = [1, 2, 3]
+    private var data = [String: String]()
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -13,8 +13,8 @@ class WeatherTableView: UITableView, UITableViewDelegate, UITableViewDataSource 
         initTable()
     }
 
-    func update() {
-
+    func update(data: [String: String]) {
+        self.data = data
         reloadData()
     }
 
@@ -41,6 +41,7 @@ class WeatherTableView: UITableView, UITableViewDelegate, UITableViewDataSource 
         delegate = self
         dataSource = self
         rowHeight = UITableView.automaticDimension
-        estimatedRowHeight = 80
+        estimatedRowHeight = 60
+        allowsSelection = false
     }
 }
