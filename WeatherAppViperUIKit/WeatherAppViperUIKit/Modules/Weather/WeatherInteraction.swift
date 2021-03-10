@@ -27,26 +27,33 @@ class WeatherInteraction: IWeatherInteraction, LocationServiceDelegate {
     func onLocationChangeSuccess(location: CLLocation) {
         print("Current Location : \(location)")
 
+        getPlaceMarkByLocation(location)
+
         presenter?.updateCurrentLocation(
                 latitude: Double(location.coordinate.latitude),
                 longitude: Double(location.coordinate.longitude)
         )
 
-        let service = WeatherService(
-                weatherForecastFetcher: WeatherForecastFetcher(
-                        apiFetcher: ApiFetcher()
-                )
-        )
-
         do {
-            let result = try service.getWeatherForecastForLocation(location: location)
-            print("RESULT \(result)")
+            let result = try weatherService.getWeatherForecastForLocation(location: location)
         } catch {
             print("\(error)")
         }
     }
 
-    func onLocationChangeFail(error: Error) {
-        print("Error while trying to update device location : \(error)")
+    func onLocationChangeFail(error: ServiceError) {
+        print(error.message)
+    }
+
+    func onGetPlaceMarkByLocationSuccess(placeMark: [CLPlacemark]) {
+        print(placeMark)
+    }
+
+    func onGetPlaceMarkByLocationFail(error: ServiceError) {
+        print(error.message)
+    }
+
+    private func getPlaceMarkByLocation(_ location: CLLocation) {
+        locationService.getPlaceMarkByLocation(location: location)
     }
 }

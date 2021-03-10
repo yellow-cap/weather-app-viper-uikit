@@ -5,7 +5,7 @@ class WeatherModule: IModule {
     func build() -> UIViewController {
         let view = WeatherView()
         let interaction = WeatherInteraction(
-                locationService: LocationService(locationManager: CLLocationManager()),
+                locationService: LocationService(),
                 weatherService: WeatherService(
                         weatherForecastFetcher: WeatherForecastFetcher(
                                 apiFetcher: ApiFetcher()

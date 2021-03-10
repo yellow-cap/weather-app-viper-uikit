@@ -1,34 +1,43 @@
 import Foundation
 import CoreLocation
+import MapKit
 
 protocol LocationServiceDelegate {
     func onLocationChangeSuccess(location: CLLocation)
-    func onLocationChangeFail(error: Error)
+    func onLocationChangeFail(error: ServiceError)
+    func onGetPlaceMarkByLocationSuccess(placeMark: [CLPlacemark])
+    func onGetPlaceMarkByLocationFail(error: ServiceError)
 }
 
 protocol ILocationService {
     var delegate: LocationServiceDelegate? { get set }
     func checkLocationServicesPermission()
+    func getPlaceMarkByLocation(location: CLLocation)
 }
 
 class LocationService: NSObject, CLLocationManagerDelegate, ILocationService {
     var delegate: LocationServiceDelegate?
-    private var locationManager: CLLocationManager!
+    private let locationManager: CLLocationManager = CLLocationManager()
+    private let geoCoder: CLGeocoder = CLGeocoder()
 
-    init(locationManager: CLLocationManager) {
+    override init() {
         super.init()
-        self.locationManager = locationManager
-        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        self.locationManager.pausesLocationUpdatesAutomatically = false
-        self.locationManager.delegate = self
+
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.pausesLocationUpdatesAutomatically = false
+        locationManager.delegate = self
     }
 
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         switch status {
         case .restricted:
-            print("Access to location restricted.")
+            onLocationChangeFail(error: ServiceError(
+                    message: "Location service: Access to location restricted.")
+            )
         case .denied:
-            print("Access to location denied.")
+            onLocationChangeFail(error: ServiceError(
+                    message: "Location service: Access to location denied.")
+            )
         case .notDetermined:
             locationManager.requestAlwaysAuthorization()
         case .authorizedAlways:
@@ -38,13 +47,17 @@ class LocationService: NSObject, CLLocationManagerDelegate, ILocationService {
             print("Access to location granted. When app in use.")
             locationManager.startUpdatingLocation()
         default:
-            print("Unhandled error occurred.")
+            onLocationChangeFail(error: ServiceError(
+                    message: "Location service: Unhandled error.")
+            )
         }
     }
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else {
-            print("Couldn't get location")
+            onLocationChangeFail(error: ServiceError(
+                    message: "Location service: Couldn't get location.")
+            )
             return
         }
 
@@ -54,7 +67,10 @@ class LocationService: NSObject, CLLocationManagerDelegate, ILocationService {
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         locationManager.stopUpdatingLocation()
 
-        onLocationChangeFail(error: error)
+        onLocationChangeFail(
+                error: ServiceError(
+                        message: "Location service: Couldn't get current location \(error.localizedDescription)")
+        )
     }
 
     func checkLocationServicesPermission() {
@@ -65,10 +81,49 @@ class LocationService: NSObject, CLLocationManagerDelegate, ILocationService {
             case .authorizedWhenInUse, .authorizedAlways:
                 locationManager.startUpdatingLocation()
             default:
-                print("Access to location restricted. Check Location services settings.")
+                onLocationChangeFail(error: ServiceError(
+                        message: "Location service: Access to location restricted. Check Location services settings.")
+                )
             }
         } else {
-            print("Location services is not enabled")
+            onLocationChangeFail(error: ServiceError(
+                    message: "Location service: Service is not available.")
+            )
+        }
+    }
+
+    func getPlaceMarkByLocation(location: CLLocation) {
+        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+            self?.geoCoder.reverseGeocodeLocation(location) { placeMark, error in
+                if let error = error {
+
+                    DispatchQueue.main.async {
+                        self?.onGetPlaceMarkByLocationFail(
+                                ServiceError(
+                                        message: "Location service: Couldn't get placemark from geoCoder: \(error.localizedDescription)"
+                                )
+                        )
+                    }
+
+                    return
+                }
+
+                guard let placeMark = placeMark else {
+                    DispatchQueue.main.async {
+                        self?.onGetPlaceMarkByLocationFail(
+                                ServiceError(
+                                        message: "Location service: Placemark is not defined"
+                                )
+                        )
+                    }
+
+                    return
+                }
+
+                DispatchQueue.main.async {
+                    self?.onGetPlaceMarkByLocationSuccess(placeMark)
+                }
+            }
         }
     }
 
@@ -80,11 +135,27 @@ class LocationService: NSObject, CLLocationManagerDelegate, ILocationService {
         delegate.onLocationChangeSuccess(location: location)
     }
 
-    private func onLocationChangeFail(error: Error) {
+    private func onLocationChangeFail(error: ServiceError) {
         guard let delegate = delegate else {
             return
         }
 
         delegate.onLocationChangeFail(error: error)
+    }
+
+    private func onGetPlaceMarkByLocationSuccess(_ placeMark: [CLPlacemark]) {
+        guard let delegate = delegate else {
+            return
+        }
+
+        delegate.onGetPlaceMarkByLocationSuccess(placeMark: placeMark)
+    }
+
+    private func onGetPlaceMarkByLocationFail(_ error: ServiceError) {
+        guard let delegate = delegate else {
+            return
+        }
+
+        delegate.onGetPlaceMarkByLocationFail(error: error)
     }
 }
