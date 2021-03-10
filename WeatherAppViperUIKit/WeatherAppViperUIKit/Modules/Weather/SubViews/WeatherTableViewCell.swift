@@ -23,7 +23,7 @@ class WeatherTableViewCell: UITableViewCell {
     }
 
     func update(title: String, value: String) {
-        titleLabel.text = title
+        titleLabel.text = title.uppercased()
         valueLabel.text = value
     }
 

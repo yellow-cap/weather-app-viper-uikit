@@ -6,8 +6,8 @@ protocol IWeatherView: IView {
     func updateCurrentLocation(location: (String, String))
     func updateWeather(
             temp: String,
-            feelsLike: String,
-            description: String
+            description: String,
+            additionalWeatherParams: [(String, String)]
     )
     func updateWeatherIcon(image: UIImage)
 }
@@ -50,8 +50,8 @@ class WeatherView: UIViewController, IWeatherView {
 
     func updateWeather(
             temp: String,
-            feelsLike: String,
-            description: String) {
+            description: String,
+            additionalWeatherParams: [(String, String)]) {
 
         if !description.isEmpty {
             currentWeatherDescriptionLabel.text = description
@@ -60,6 +60,8 @@ class WeatherView: UIViewController, IWeatherView {
 
         currentTemperatureLabel.text = temp
         currentTemperatureLabel.isHidden = false
+
+        additionalWeatherParamsTable.update(data: additionalWeatherParams)
     }
 
     func updateWeatherIcon(image: UIImage) {

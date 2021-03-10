@@ -26,10 +26,13 @@ class WeatherPresenter: IWeatherPresenter {
 
     func updateWeather(weatherForecast: WeatherForecast) {
         print(weatherForecast)
+
+        let additionalWeatherParams = WeatherViewHelper.prepareTableContent(params: weatherForecast.current)
+
         view?.updateWeather(
                 temp: weatherForecast.current.temp.toStringCelsius(),
-                feelsLike: String(weatherForecast.current.feels_like),
-                description: weatherForecast.current.weather.last?.description.capitalized ?? ""
+                description: weatherForecast.current.weather.last?.description.capitalized ?? "",
+                additionalWeatherParams: additionalWeatherParams
         )
     }
 

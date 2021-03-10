@@ -25,4 +25,20 @@ class WeatherViewHelper {
 
         return (mainLocationString, additionalLocationString)
     }
+    
+    static func prepareTableContent(params: WeatherFull?) -> [(String, String)] {
+        guard let params = params else {
+            return []
+        }
+
+        return [
+            ("Feels like", params.feels_like.toStringCelsius()),
+            ("Pressure", String(params.pressure)),
+            ("Humidity", String(params.humidity)),
+            ("Sunrise", String(params.sunrise)),
+            ("Sunset", String(params.sunset)),
+            ("Visibility", String(params.visibility)),
+            ("Wind speed", String(params.wind_speed))
+        ]
+    }
 }

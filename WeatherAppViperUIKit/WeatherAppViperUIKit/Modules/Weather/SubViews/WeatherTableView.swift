@@ -2,7 +2,7 @@ import UIKit
 
 class WeatherTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     private let cellReuseIdentifier = "weather_table_cell"
-    private var data = [String: String]()
+    private var data = [(String, String)]()
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -13,7 +13,7 @@ class WeatherTableView: UITableView, UITableViewDelegate, UITableViewDataSource 
         initTable()
     }
 
-    func update(data: [String: String]) {
+    func update(data: [(String, String)]) {
         self.data = data
         reloadData()
     }
@@ -27,13 +27,9 @@ class WeatherTableView: UITableView, UITableViewDelegate, UITableViewDataSource 
             return UITableViewCell()
         }
 
-        cell.update(title: "Cell \(indexPath.row)", value: "Cell \(indexPath.row)")
+        cell.update(title: data[indexPath.row].0, value: data[indexPath.row].1)
 
         return cell
-    }
-
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("You tapped cell number \(indexPath.row).")
     }
 
     private func initTable() {
