@@ -28,6 +28,7 @@
 		58C7ABB00DFA970B9F2152AE /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C7A161D59354B69721AEFE /* LocationService.swift */; };
 		58C7AC35D3B5DB709ACF7D83 /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C7A68BFFBF3370B9C33A23 /* WeatherService.swift */; };
 		58C7AD2676F8DCF1671D39E8 /* WeatherFull.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C7A2E92A9DDC6AF961D319 /* WeatherFull.swift */; };
+		58C7ADD7AE722583B53EC2BB /* DoubleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C7ADED8559699CCBAC23FF /* DoubleExtension.swift */; };
 		58C7ADDB0BD3FF37C5CF6385 /* ApiFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C7AE200792C621D646C907 /* ApiFetcher.swift */; };
 		58C7AE1A29C1E41CE38F7E23 /* ApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C7AE5FE71808E204E18D31 /* ApiError.swift */; };
 		58C7AF417EAA17147C7F9204 /* WeatherInteraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C7ADFCFAB6D0124B74E52C /* WeatherInteraction.swift */; };
@@ -80,6 +81,7 @@
 		58C7AD0BD6B15562AEFBE44E /* WeatherAppViperUIKitUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeatherAppViperUIKitUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		58C7AD83467630A04402E4FD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		58C7ADCB066350B69D994FC4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		58C7ADED8559699CCBAC23FF /* DoubleExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoubleExtension.swift; sourceTree = "<group>"; };
 		58C7ADFCFAB6D0124B74E52C /* WeatherInteraction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherInteraction.swift; sourceTree = "<group>"; };
 		58C7AE0015D02C31E2C89BF9 /* WeatherAppViperUIKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherAppViperUIKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		58C7AE200792C621D646C907 /* ApiFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiFetcher.swift; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 			isa = PBXGroup;
 			children = (
 				58C7A6A340382797BB65B5F0 /* Viper */,
+				58C7AED71C508AA961BB7CF8 /* Extensions */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -212,6 +215,14 @@
 				58C7A7F7261C7FF79054A2C3 /* WeatherAppViperUIKitUITests.swift */,
 			);
 			path = WeatherAppViperUIKitUITests;
+			sourceTree = "<group>";
+		};
+		58C7AED71C508AA961BB7CF8 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				58C7ADED8559699CCBAC23FF /* DoubleExtension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		58C7AF0F486D841CA92BF681 /* WeatherAppViperUIKit */ = {
@@ -411,6 +422,7 @@
 				58C7AC35D3B5DB709ACF7D83 /* WeatherService.swift in Sources */,
 				58C7AF5D7898C9651A6A6F22 /* ServiceError.swift in Sources */,
 				58C7AB8D38751BC18CE22AB9 /* WeatherViewHelper.swift in Sources */,
+				58C7ADD7AE722583B53EC2BB /* DoubleExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

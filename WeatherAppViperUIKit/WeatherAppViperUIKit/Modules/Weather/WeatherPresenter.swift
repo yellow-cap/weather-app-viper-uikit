@@ -25,7 +25,7 @@ class WeatherPresenter: IWeatherPresenter {
     func updateWeather(weatherForecast: WeatherForecast) {
         print(weatherForecast)
         view?.updateWeather(
-                temp: String(weatherForecast.current.temp),
+                temp: weatherForecast.current.temp.toStringCelsius(),
                 feelsLike: String(weatherForecast.current.feels_like),
                 description: weatherForecast.current.weather.last?.description.capitalized ?? ""
         )

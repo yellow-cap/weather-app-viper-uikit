@@ -72,11 +72,11 @@ class WeatherView: UIViewController, IWeatherView {
         currentWeatherDescriptionLabel.isHidden = true
 
         currentTemperatureLabel.textAlignment = .center
-        currentTemperatureLabel.font = UIFont.systemFont(ofSize: 36.0, weight: .semibold)
+        currentTemperatureLabel.font = UIFont.systemFont(ofSize: 80.0, weight: .light)
         currentTemperatureLabel.isHidden = true
 
-        currentWeatherContainer.backgroundColor = UIColor.orange
-        currentTemperatureLabel.backgroundColor = UIColor.red
+        // currentWeatherContainer.backgroundColor = UIColor.orange
+        // currentTemperatureLabel.backgroundColor = UIColor.red
     }
 
     private func placeView() {
@@ -137,7 +137,7 @@ class WeatherView: UIViewController, IWeatherView {
                     constant: -20
             ),
 
-            currentWeatherContainer.topAnchor.constraint(equalTo: locationContainer.bottomAnchor, constant: 10),
+            currentWeatherContainer.topAnchor.constraint(equalTo: locationContainer.bottomAnchor, constant: 24),
             currentWeatherContainer.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             currentWeatherContainer.heightAnchor.constraint(equalToConstant: 200),
 
@@ -148,7 +148,7 @@ class WeatherView: UIViewController, IWeatherView {
             currentTemperatureLabel.centerXAnchor.constraint(equalTo: currentWeatherContainer.centerXAnchor),
             currentTemperatureLabel.leadingAnchor.constraint(equalTo: currentWeatherContainer.leadingAnchor),
             currentTemperatureLabel.trailingAnchor.constraint(equalTo: currentWeatherDescriptionLabel.trailingAnchor),
-            currentTemperatureLabel.topAnchor.constraint(equalTo: currentWeatherDescriptionLabel.bottomAnchor, constant: 8)
+            currentTemperatureLabel.topAnchor.constraint(equalTo: currentWeatherDescriptionLabel.bottomAnchor)
         ])
     }
 }
