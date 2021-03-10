@@ -29,9 +29,11 @@ class WeatherInteraction: IWeatherInteraction, LocationServiceDelegate {
 
         do {
             let weatherForecast = try weatherService.getWeatherForecastForLocation(location: location)
+            getCurrentWeatherIcon(weatherForecast)
+
             presenter?.updateWeather(weatherForecast: weatherForecast)
         } catch {
-            print("\(error)")
+            print("Weather service: \(error.localizedDescription)")
         }
     }
 
@@ -49,5 +51,20 @@ class WeatherInteraction: IWeatherInteraction, LocationServiceDelegate {
 
     private func getPlaceMarkByLocation(_ location: CLLocation) {
         locationService.getPlaceMarkByLocation(location: location)
+    }
+
+    private func getCurrentWeatherIcon(_ weatherForecast: WeatherForecast) {
+        guard let weather = weatherForecast.current.weather.last else {
+            presenter?.updateWeatherIcon(iconData: nil)
+            return
+        }
+        do {
+            let iconData = try weatherService.getCurrentWeatherIcon(iconCode: weather.icon)
+            presenter?.updateWeatherIcon(iconData: iconData)
+        } catch {
+            print("Weather service: \(error.localizedDescription)")
+
+            presenter?.updateWeatherIcon(iconData: nil)
+        }
     }
 }

@@ -9,6 +9,7 @@ protocol IWeatherView: IView {
             feelsLike: String,
             description: String
     )
+    func updateWeatherIcon(image: UIImage)
 }
 
 class WeatherView: UIViewController, IWeatherView {
@@ -20,6 +21,7 @@ class WeatherView: UIViewController, IWeatherView {
     private var currentWeatherContainer: UIView = UIView()
     private var currentWeatherDescriptionLabel: UILabel = UILabel()
     private var currentTemperatureLabel: UILabel = UILabel()
+    private var currentWeatherIcon: UIImageView = UIImageView()
 
     override func loadView() {
         super.loadView()
@@ -58,6 +60,10 @@ class WeatherView: UIViewController, IWeatherView {
         currentTemperatureLabel.isHidden = false
     }
 
+    func updateWeatherIcon(image: UIImage) {
+        currentWeatherIcon.image = image
+    }
+
     private func initView() {
         mainLocationLabel.textAlignment = .center
         mainLocationLabel.font = UIFont.systemFont(ofSize: 32.0, weight: .regular)
@@ -75,8 +81,8 @@ class WeatherView: UIViewController, IWeatherView {
         currentTemperatureLabel.font = UIFont.systemFont(ofSize: 80.0, weight: .light)
         currentTemperatureLabel.isHidden = true
 
-        // currentWeatherContainer.backgroundColor = UIColor.orange
-        // currentTemperatureLabel.backgroundColor = UIColor.red
+        // currentWeatherContainer.backgroundColor = UIColor.red
+        currentWeatherIcon.frame = CGRect(x: 0, y: 0, width: 80, height: 60)
     }
 
     private func placeView() {
@@ -119,13 +125,18 @@ class WeatherView: UIViewController, IWeatherView {
     }
 
     private func placeCurrentWeatherContainer() {
+        let innerContainer = UIView()
+
         currentWeatherContainer.addSubview(currentWeatherDescriptionLabel)
-        currentWeatherContainer.addSubview(currentTemperatureLabel)
+        innerContainer.addSubview(currentTemperatureLabel)
+        innerContainer.addSubview(currentWeatherIcon)
+        currentWeatherContainer.addSubview(innerContainer)
         view.addSubview(currentWeatherContainer)
 
         currentWeatherContainer.translatesAutoresizingMaskIntoConstraints = false
         currentWeatherDescriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         currentTemperatureLabel.translatesAutoresizingMaskIntoConstraints = false
+        innerContainer.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
             currentWeatherContainer.leadingAnchor.constraint(
@@ -145,10 +156,14 @@ class WeatherView: UIViewController, IWeatherView {
             currentWeatherDescriptionLabel.leadingAnchor.constraint(equalTo: currentWeatherContainer.leadingAnchor),
             currentWeatherDescriptionLabel.trailingAnchor.constraint(equalTo: currentWeatherDescriptionLabel.trailingAnchor),
 
-            currentTemperatureLabel.centerXAnchor.constraint(equalTo: currentWeatherContainer.centerXAnchor),
-            currentTemperatureLabel.leadingAnchor.constraint(equalTo: currentWeatherContainer.leadingAnchor),
-            currentTemperatureLabel.trailingAnchor.constraint(equalTo: currentWeatherDescriptionLabel.trailingAnchor),
-            currentTemperatureLabel.topAnchor.constraint(equalTo: currentWeatherDescriptionLabel.bottomAnchor)
+            innerContainer.topAnchor.constraint(equalTo: currentWeatherDescriptionLabel.bottomAnchor, constant: 12),
+            innerContainer.centerXAnchor.constraint(equalTo: currentWeatherDescriptionLabel.centerXAnchor),
+
+            currentWeatherIcon.leadingAnchor.constraint(equalTo: innerContainer.leadingAnchor),
+            currentWeatherIcon.centerYAnchor.constraint(equalTo: currentTemperatureLabel.centerYAnchor),
+
+            currentTemperatureLabel.leadingAnchor.constraint(equalTo: currentWeatherIcon.trailingAnchor, constant: 12),
+            currentTemperatureLabel.trailingAnchor.constraint(equalTo: innerContainer.trailingAnchor)
         ])
     }
 }

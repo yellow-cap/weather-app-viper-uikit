@@ -1,7 +1,9 @@
 import CoreLocation
+import UIKit
 
 protocol IWeatherService {
     func getWeatherForecastForLocation(location: CLLocation) throws -> WeatherForecast
+    func getCurrentWeatherIcon(iconCode: String) throws -> Data?
 }
 
 class WeatherService: IWeatherService {
@@ -13,5 +15,9 @@ class WeatherService: IWeatherService {
 
     func getWeatherForecastForLocation(location: CLLocation) throws -> WeatherForecast {
         try fetcher.fetchWeatherForecastForLocation(location: location)
+    }
+
+    func getCurrentWeatherIcon(iconCode: String) throws -> Data? {
+        try fetcher.fetchCurrentWeatherIcon(iconCode: iconCode)
     }
 }

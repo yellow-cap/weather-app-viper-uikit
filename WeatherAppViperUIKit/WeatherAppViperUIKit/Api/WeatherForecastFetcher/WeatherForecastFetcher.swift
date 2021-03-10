@@ -3,6 +3,7 @@ import CoreLocation
 
 protocol IWeatherForecastFetcher {
     func fetchWeatherForecastForLocation(location: CLLocation) throws -> WeatherForecast
+    func fetchCurrentWeatherIcon(iconCode: String) throws -> Data?
 }
 
 class WeatherForecastFetcher: IWeatherForecastFetcher {
@@ -38,6 +39,24 @@ class WeatherForecastFetcher: IWeatherForecastFetcher {
             } catch {
                 throw ApiError(message: "WeatherForecastFetcher: Couldn't parse response data")
             }
+        case let .failure(error):
+            throw error
+        }
+    }
+
+    func fetchCurrentWeatherIcon(iconCode: String) throws -> Data? {
+        let path = ApiUrlBuilder.getCurrentWeatherIcon(iconCode: iconCode)
+
+        let result = apiFetcher.request(
+                type: ApiRequestType.get,
+                path: path,
+                headers: [:],
+                queryParams: [:]
+        )
+
+        switch result {
+        case let .success(data):
+            return data
         case let .failure(error):
             throw error
         }

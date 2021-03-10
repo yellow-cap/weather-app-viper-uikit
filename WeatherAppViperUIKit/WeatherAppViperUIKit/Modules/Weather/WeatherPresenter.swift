@@ -1,5 +1,6 @@
 import Foundation
 import CoreLocation
+import UIKit
 
 protocol IWeatherPresenter: IPresenter {
     var interaction: IWeatherInteraction? { get set }
@@ -7,6 +8,7 @@ protocol IWeatherPresenter: IPresenter {
     func viewDidLoad()
     func updateCurrentLocation(placeMark: CLPlacemark)
     func updateWeather(weatherForecast: WeatherForecast)
+    func updateWeatherIcon(iconData: Data?)
 }
 
 class WeatherPresenter: IWeatherPresenter {
@@ -29,5 +31,15 @@ class WeatherPresenter: IWeatherPresenter {
                 feelsLike: String(weatherForecast.current.feels_like),
                 description: weatherForecast.current.weather.last?.description.capitalized ?? ""
         )
+    }
+
+    func updateWeatherIcon(iconData: Data?) {
+        guard let iconData = iconData, let image = UIImage(data: iconData) else {
+            view?.updateWeatherIcon(image: UIImage(systemName: "cloud")!)
+
+            return
+        }
+
+        view?.updateWeatherIcon(image: image)
     }
 }
