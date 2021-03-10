@@ -23,6 +23,8 @@ class WeatherView: UIViewController, IWeatherView {
     private var currentTemperatureLabel: UILabel = UILabel()
     private var currentWeatherIcon: UIImageView = UIImageView()
 
+    private let additionalWeatherParamsTable = WeatherTableView()
+
     override func loadView() {
         super.loadView()
         initView()
@@ -82,7 +84,6 @@ class WeatherView: UIViewController, IWeatherView {
         currentTemperatureLabel.font = UIFont.systemFont(ofSize: 80.0, weight: .light)
         currentTemperatureLabel.isHidden = true
 
-        // currentWeatherContainer.backgroundColor = UIColor.red
         currentWeatherIcon.frame = CGRect(x: 0, y: 0, width: 80, height: 60)
         currentWeatherIcon.isHidden = true
     }
@@ -90,6 +91,7 @@ class WeatherView: UIViewController, IWeatherView {
     private func placeView() {
         placeLocationContainer()
         placeCurrentWeatherContainer()
+        placeAdditionalWeatherParamsTable()
     }
 
     private func placeLocationContainer() {
@@ -152,7 +154,6 @@ class WeatherView: UIViewController, IWeatherView {
 
             currentWeatherContainer.topAnchor.constraint(equalTo: locationContainer.bottomAnchor, constant: 24),
             currentWeatherContainer.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            currentWeatherContainer.heightAnchor.constraint(equalToConstant: 200),
 
             currentWeatherDescriptionLabel.centerXAnchor.constraint(equalTo: currentWeatherContainer.centerXAnchor),
             currentWeatherDescriptionLabel.leadingAnchor.constraint(equalTo: currentWeatherContainer.leadingAnchor),
@@ -166,6 +167,19 @@ class WeatherView: UIViewController, IWeatherView {
 
             currentTemperatureLabel.leadingAnchor.constraint(equalTo: currentWeatherIcon.trailingAnchor, constant: 12),
             currentTemperatureLabel.trailingAnchor.constraint(equalTo: innerContainer.trailingAnchor)
+        ])
+    }
+
+    private func placeAdditionalWeatherParamsTable() {
+        view.addSubview(additionalWeatherParamsTable)
+
+        additionalWeatherParamsTable.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            additionalWeatherParamsTable.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            additionalWeatherParamsTable.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            additionalWeatherParamsTable.topAnchor.constraint(equalTo: view.topAnchor, constant: 320),
+            additionalWeatherParamsTable.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
 }
