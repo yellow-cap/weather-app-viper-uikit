@@ -28,7 +28,8 @@ class WeatherInteraction: IWeatherInteraction, LocationServiceDelegate {
         getPlaceMarkByLocation(location)
 
         do {
-            let result = try weatherService.getWeatherForecastForLocation(location: location)
+            let weatherForecast = try weatherService.getWeatherForecastForLocation(location: location)
+            presenter?.updateWeather(weatherForecast: weatherForecast)
         } catch {
             print("\(error)")
         }

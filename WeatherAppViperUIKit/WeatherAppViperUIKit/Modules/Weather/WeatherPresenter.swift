@@ -6,6 +6,7 @@ protocol IWeatherPresenter: IPresenter {
     var view: IWeatherView? { get set }
     func viewDidLoad()
     func updateCurrentLocation(placeMark: CLPlacemark)
+    func updateWeather(weatherForecast: WeatherForecast)
 }
 
 class WeatherPresenter: IWeatherPresenter {
@@ -19,5 +20,14 @@ class WeatherPresenter: IWeatherPresenter {
 
     func updateCurrentLocation(placeMark: CLPlacemark) {
         view?.updateCurrentLocation(location: WeatherViewHelper.parseLocation(placeMark))
+    }
+
+    func updateWeather(weatherForecast: WeatherForecast) {
+        print(weatherForecast)
+        view?.updateWeather(
+                temp: String(weatherForecast.current.temp),
+                feelsLike: String(weatherForecast.current.feels_like),
+                description: weatherForecast.current.weather.last?.description.capitalized ?? ""
+        )
     }
 }
