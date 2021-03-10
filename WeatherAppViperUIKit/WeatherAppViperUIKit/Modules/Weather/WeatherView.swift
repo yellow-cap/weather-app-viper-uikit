@@ -62,6 +62,7 @@ class WeatherView: UIViewController, IWeatherView {
 
     func updateWeatherIcon(image: UIImage) {
         currentWeatherIcon.image = image
+        currentWeatherIcon.isHidden = false
     }
 
     private func initView() {
@@ -83,6 +84,7 @@ class WeatherView: UIViewController, IWeatherView {
 
         // currentWeatherContainer.backgroundColor = UIColor.red
         currentWeatherIcon.frame = CGRect(x: 0, y: 0, width: 80, height: 60)
+        currentWeatherIcon.isHidden = true
     }
 
     private func placeView() {
@@ -156,7 +158,7 @@ class WeatherView: UIViewController, IWeatherView {
             currentWeatherDescriptionLabel.leadingAnchor.constraint(equalTo: currentWeatherContainer.leadingAnchor),
             currentWeatherDescriptionLabel.trailingAnchor.constraint(equalTo: currentWeatherDescriptionLabel.trailingAnchor),
 
-            innerContainer.topAnchor.constraint(equalTo: currentWeatherDescriptionLabel.bottomAnchor, constant: 12),
+            innerContainer.topAnchor.constraint(equalTo: currentWeatherDescriptionLabel.bottomAnchor, constant: 20),
             innerContainer.centerXAnchor.constraint(equalTo: currentWeatherDescriptionLabel.centerXAnchor),
 
             currentWeatherIcon.leadingAnchor.constraint(equalTo: innerContainer.leadingAnchor),
