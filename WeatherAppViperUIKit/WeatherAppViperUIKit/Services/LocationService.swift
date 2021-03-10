@@ -6,21 +6,21 @@ protocol LocationServiceDelegate {
     func onLocationChangeFail(error: Error)
 }
 
-class LocationService: NSObject, CLLocationManagerDelegate {
+protocol ILocationService {
+    var delegate: LocationServiceDelegate? { get set }
+    func checkLocationServicesPermission()
+}
+
+class LocationService: NSObject, CLLocationManagerDelegate, ILocationService {
     var delegate: LocationServiceDelegate?
-    var locationManager: CLLocationManager!
+    private var locationManager: CLLocationManager!
 
     init(locationManager: CLLocationManager) {
         super.init()
         self.locationManager = locationManager
-    }
-
-    func initialize() {
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.pausesLocationUpdatesAutomatically = false
-        locationManager.delegate = self
-
-        checkLocationServicesPermission()
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        self.locationManager.pausesLocationUpdatesAutomatically = false
+        self.locationManager.delegate = self
     }
 
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
@@ -57,7 +57,7 @@ class LocationService: NSObject, CLLocationManagerDelegate {
         onLocationChangeFail(error: error)
     }
 
-    private func checkLocationServicesPermission() {
+    func checkLocationServicesPermission() {
         if CLLocationManager.locationServicesEnabled() {
             switch locationManager.authorizationStatus {
             case .notDetermined:

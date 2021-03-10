@@ -2,20 +2,31 @@ import CoreLocation
 
 protocol IWeatherInteraction: IInteraction {
     var presenter: IWeatherPresenter? { get set }
-    func initializeLocationService()
+    func initializeServices()
+    func checkLocationServicesPermission()
 }
 
 class WeatherInteraction: IWeatherInteraction, LocationServiceDelegate {
     weak var presenter: IWeatherPresenter?
-    private let locationService = LocationService(locationManager: CLLocationManager())
+    private var locationService: ILocationService
+    private let weatherService: IWeatherService
 
-    func initializeLocationService() {
-        locationService.initialize()
+    init(locationService: ILocationService, weatherService: IWeatherService) {
+        self.locationService = locationService
+        self.weatherService = weatherService
+    }
+
+    func initializeServices() {
         locationService.delegate = self
+    }
+
+    func checkLocationServicesPermission() {
+        locationService.checkLocationServicesPermission()
     }
 
     func onLocationChangeSuccess(location: CLLocation) {
         print("Current Location : \(location)")
+
         presenter?.updateCurrentLocation(
                 latitude: Double(location.coordinate.latitude),
                 longitude: Double(location.coordinate.longitude)

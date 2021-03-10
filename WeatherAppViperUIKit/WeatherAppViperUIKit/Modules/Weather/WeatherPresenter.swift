@@ -12,7 +12,8 @@ class WeatherPresenter: IWeatherPresenter {
     weak var view: IWeatherView?
 
     func viewDidLoad() {
-        interaction?.initializeLocationService()
+        interaction?.initializeServices()
+        interaction?.checkLocationServicesPermission()
     }
 
     func updateCurrentLocation(latitude: Double, longitude: Double) {
