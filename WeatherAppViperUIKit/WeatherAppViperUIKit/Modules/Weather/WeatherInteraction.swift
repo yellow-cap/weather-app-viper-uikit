@@ -21,10 +21,14 @@ class WeatherInteraction: IWeatherInteraction, LocationServiceDelegate {
                 longitude: Double(location.coordinate.longitude)
         )
 
-        let fetcher = WeatherForecastFetcher(apiFetcher: ApiFetcher())
-        let result: WeatherForecast
+        let service = WeatherService(
+                weatherForecastFetcher: WeatherForecastFetcher(
+                        apiFetcher: ApiFetcher()
+                )
+        )
+
         do {
-            result = try fetcher.fetchWeatherForecastForLocation(location: location)
+            let result = try service.getWeatherForecastForLocation(location: location)
             print("RESULT \(result)")
         } catch {
             print("\(error)")
