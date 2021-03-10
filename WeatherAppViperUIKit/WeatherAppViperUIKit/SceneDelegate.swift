@@ -24,6 +24,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: scene)
         let initialViewController = WeatherModule().build()
         let navigationViewController = UINavigationController(rootViewController: initialViewController)
+        navigationViewController.isNavigationBarHidden = true
 
         window.rootViewController = navigationViewController
 

@@ -18,7 +18,6 @@ class WeatherPresenter: IWeatherPresenter {
     }
 
     func updateCurrentLocation(placeMark: CLPlacemark) {
-        let locationString = "\(placeMark.locality), \(placeMark.administrativeArea), \(placeMark.country)"
-        view?.updateCurrentLocation(location: locationString)
+        view?.updateCurrentLocation(location: WeatherViewHelper.parseLocation(placeMark))
     }
 }
