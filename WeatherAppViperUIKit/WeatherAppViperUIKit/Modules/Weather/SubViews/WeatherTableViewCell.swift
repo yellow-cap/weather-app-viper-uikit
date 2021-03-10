@@ -28,7 +28,7 @@ class WeatherTableViewCell: UITableViewCell {
     }
 
     private func initView() {
-        titleLabel.font = UIFont.systemFont(ofSize: 16.0, weight: .light)
+        titleLabel.font = UIFont.systemFont(ofSize: 12.0, weight: .light)
         valueLabel.font = UIFont.systemFont(ofSize: 20.0, weight: .light)
     }
 

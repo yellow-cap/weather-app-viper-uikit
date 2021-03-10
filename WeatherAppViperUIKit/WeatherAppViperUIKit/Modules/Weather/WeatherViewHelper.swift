@@ -33,12 +33,12 @@ class WeatherViewHelper {
 
         return [
             ("Feels like", params.feels_like.toStringCelsius()),
-            ("Pressure", String(params.pressure)),
-            ("Humidity", String(params.humidity)),
+            ("Pressure", Double(params.pressure).toStringPressureMmHg()),
+            ("Humidity", params.humidity.toStringPercents()),
             ("Sunrise", String(params.sunrise)),
             ("Sunset", String(params.sunset)),
-            ("Visibility", String(params.visibility)),
-            ("Wind speed", String(params.wind_speed))
+            ("Visibility", Double(params.visibility).toStringKm()),
+            ("Wind speed", params.wind_speed.toStringMetersPerSec())
         ]
     }
 }
