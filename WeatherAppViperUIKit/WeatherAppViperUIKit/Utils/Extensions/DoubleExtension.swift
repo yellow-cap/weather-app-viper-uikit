@@ -6,7 +6,7 @@ extension Double {
     }
 
     func toStringMetersPerSec() -> String {
-        "\(self) metre/sec"
+        "\(self) m/s"
     }
 
     func toStringPressureMmHg() -> String {
