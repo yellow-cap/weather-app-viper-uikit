@@ -20,6 +20,15 @@ class WeatherInteraction: IWeatherInteraction, LocationServiceDelegate {
                 latitude: Double(location.coordinate.latitude),
                 longitude: Double(location.coordinate.longitude)
         )
+
+        let fetcher = WeatherForecastFetcher(apiFetcher: ApiFetcher())
+        let result: WeatherForecast
+        do {
+            result = try fetcher.fetchWeatherForecastForLocation(location: location)
+            print("RESULT \(result)")
+        } catch {
+            print("\(error)")
+        }
     }
 
     func onLocationChangeFail(error: Error) {
