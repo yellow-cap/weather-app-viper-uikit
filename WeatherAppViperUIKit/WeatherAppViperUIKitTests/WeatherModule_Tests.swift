@@ -17,7 +17,7 @@ class WeatherModule_Tests: XCTestCase {
         super.tearDown()
     }
 
-    func test_parse_placemark_with_full_data() {
+    func test_prepare_location_content_with_full_data() {
         // setup
         let initLocality = "Moscow"
         let initAdministrativeArea = "Moscow Oblast"
@@ -37,7 +37,7 @@ class WeatherModule_Tests: XCTestCase {
         XCTAssertEqual(result.1, expectedAdditionalLocationString, "Incorrect additionalLocationString")
     }
 
-    func test_parse_placemark_with_empty_locality() {
+    func test_prepare_location_content_with_empty_locality() {
         // setup
         let initLocality: String? = nil
         let initAdministrativeArea = "Moscow Oblast"
@@ -57,7 +57,7 @@ class WeatherModule_Tests: XCTestCase {
         XCTAssertEqual(result.1, expectedAdditionalLocationString, "Incorrect additionalLocationString")
     }
 
-    func test_parse_placemark_with_just_country() {
+    func test_prepare_location_content_with_just_country() {
         // setup
         let initLocality: String? = nil
         let initAdministrativeArea: String? = nil
@@ -77,7 +77,7 @@ class WeatherModule_Tests: XCTestCase {
         XCTAssertEqual(result.1, expectedAdditionalLocationString, "Incorrect additionalLocationString")
     }
 
-    func test_parse_placemark_with_no_data() {
+    func test_prepare_location_content_with_no_data() {
         // setup
         let initLocality: String? = nil
         let initAdministrativeArea: String? = nil
