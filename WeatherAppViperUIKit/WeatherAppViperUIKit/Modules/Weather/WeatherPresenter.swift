@@ -47,10 +47,10 @@ class WeatherPresenter: IWeatherPresenter {
     }
 
     func onGeneralError() {
-        view?.showAlert(title: "Oops...", message: "Seems some of the services are unavailable now.")
+        view?.showAlert(title: StringResources.alertErrorTitle, message: StringResources.alertErrorMessage)
     }
 
     func onPermissionsNotGranted() {
-        view?.showAlert(title: "Location permissions denied", message: "Please check your location permission for the application in device Settings")
+        view?.showAlert(title: StringResources.alertRestrictionsTitle, message: StringResources.alertRestrictionsMessage)
     }
 }

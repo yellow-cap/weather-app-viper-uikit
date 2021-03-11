@@ -8,4 +8,10 @@ class StringResources {
     static let additionalWeatherParamSunset = NSLocalizedString("Sunset", comment: "Additional weather param sunset.")
     static let additionalWeatherParamVisibility = NSLocalizedString("Visibility", comment: "Additional weather param visibility.")
     static let additionalWeatherParamWindSpeed = NSLocalizedString("Wind speed", comment: "Additional weather param wind speed.")
+
+    static let alertErrorTitle = NSLocalizedString("Oops...", comment: "Alert error title")
+    static let alertErrorMessage = NSLocalizedString("Seems some of the services are unavailable now.", comment: "Alert error message")
+
+    static let alertRestrictionsTitle = NSLocalizedString("Location permissions denied.", comment: "Restriction alert title")
+    static let alertRestrictionsMessage = NSLocalizedString("Please, check your location permission for the application in device Settings", comment: "Restriction alert message")
 }
