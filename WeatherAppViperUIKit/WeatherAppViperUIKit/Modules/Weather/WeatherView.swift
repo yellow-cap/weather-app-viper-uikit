@@ -46,6 +46,7 @@ class WeatherView: UIViewController, IWeatherView {
 
         if !location.1.isEmpty {
             additionalLocationLabel.text = location.1
+            additionalLocationLabel.isHidden = false
         }
     }
 
@@ -89,7 +90,7 @@ class WeatherView: UIViewController, IWeatherView {
 
         additionalLocationLabel.textAlignment = .center
         additionalLocationLabel.font = UIFont.systemFont(ofSize: 16.0, weight: .medium)
-        additionalLocationLabel.text = StringResources.locationDefaultString
+        additionalLocationLabel.isHidden = true
 
         currentWeatherDescriptionLabel.textAlignment = .center
         currentWeatherDescriptionLabel.font = UIFont.systemFont(ofSize: 24.0, weight: .medium)

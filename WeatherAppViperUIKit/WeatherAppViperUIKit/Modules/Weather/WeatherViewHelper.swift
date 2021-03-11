@@ -16,7 +16,7 @@ class WeatherViewHelper {
             }
 
         } else {
-            mainLocationString = String(placeMark.administrativeArea ?? "")
+            mainLocationString = String(placeMark.administrativeArea ?? StringResources.locationDefaultString)
 
             if let country = placeMark.country {
                 mainLocationString += ", \(country)"
