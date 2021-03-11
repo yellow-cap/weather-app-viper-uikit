@@ -31,19 +31,19 @@ class WeatherViewHelper {
         let timeZone = TimeZone(secondsFromGMT: weatherForecast.timezone_offset)
 
         return [
-            ("Feels like", params.feels_like.toStringCelsius()),
-            ("Pressure", Double(params.pressure).toStringPressureMmHg()),
-            ("Humidity", params.humidity.toStringPercents()),
-            ("Sunrise", params.sunrise
+            (StringResources.additionalWeatherParamFeelsLike, params.feels_like.toStringCelsius()),
+            (StringResources.additionalWeatherParamPressure, Double(params.pressure).toStringPressureMmHg()),
+            (StringResources.additionalWeatherParamHumidity, params.humidity.toStringPercents()),
+            (StringResources.additionalWeatherParamSunrise, params.sunrise
                     .toDate()
                     .getTimeStringForeTimeZone(timeZone: timeZone!)
             ),
-            ("Sunset", params.sunset
+            (StringResources.additionalWeatherParamSunset, params.sunset
                     .toDate()
                     .getTimeStringForeTimeZone(timeZone: timeZone!)
             ),
-            ("Visibility", Double(params.visibility).toStringKm()),
-            ("Wind speed", params.wind_speed.toStringMetersPerSec())
+            (StringResources.additionalWeatherParamVisibility, Double(params.visibility).toStringKm()),
+            (StringResources.additionalWeatherParamWindSpeed, params.wind_speed.toStringMetersPerSec())
         ]
     }
 }
