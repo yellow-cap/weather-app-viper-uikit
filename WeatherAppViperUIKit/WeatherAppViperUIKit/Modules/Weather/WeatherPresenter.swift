@@ -27,7 +27,7 @@ class WeatherPresenter: IWeatherPresenter {
     func updateWeather(weatherForecast: WeatherForecast) {
         print(weatherForecast)
 
-        let additionalWeatherParams = WeatherViewHelper.prepareTableContent(params: weatherForecast.current)
+        let additionalWeatherParams = WeatherViewHelper.prepareTableContent(weatherForecast: weatherForecast)
 
         view?.updateWeather(
                 temp: weatherForecast.current.temp.toStringCelsius(),
