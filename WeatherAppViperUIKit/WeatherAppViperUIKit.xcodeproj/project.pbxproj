@@ -27,7 +27,6 @@
 		58C7A7EE116DC75BEEF830E4 /* WeatherModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C7A2221B36BEB9760AD6CC /* WeatherModule.swift */; };
 		58C7A80EFD31CC72A37DA1F2 /* ApiRequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C7A3C7B67343450827844C /* ApiRequestType.swift */; };
 		58C7A84729B2E037BBE4AA87 /* ApiConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C7AFB969D4989126411551 /* ApiConstants.swift */; };
-		58C7AA4D231C2F609A06AE06 /* WeatherAppViperUIKitUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C7A7F7261C7FF79054A2C3 /* WeatherAppViperUIKitUITests.swift */; };
 		58C7AA7967FE4B5568EBADA3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C7AD83467630A04402E4FD /* AppDelegate.swift */; };
 		58C7AAF7D1F326363D9B7AD4 /* IView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C7A128B866E9636E75DC23 /* IView.swift */; };
 		58C7AB1826BF0BAA81EE1F47 /* WeatherForecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C7A7E45F94F4E9B7D0BFBE /* WeatherForecast.swift */; };
@@ -88,7 +87,6 @@
 		58C7A736455731D241DC03EA /* WeatherAppViperUIKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeatherAppViperUIKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		58C7A7A96E2A27DC8091909F /* IInteraction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IInteraction.swift; sourceTree = "<group>"; };
 		58C7A7E45F94F4E9B7D0BFBE /* WeatherForecast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherForecast.swift; sourceTree = "<group>"; };
-		58C7A7F7261C7FF79054A2C3 /* WeatherAppViperUIKitUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherAppViperUIKitUITests.swift; sourceTree = "<group>"; };
 		58C7A800E83720537A0529BE /* StringResources.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringResources.swift; sourceTree = "<group>"; };
 		58C7AA54E213C40CDC34C37F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.info; path = Info.plist; sourceTree = "<group>"; };
 		58C7AAED6942E3BEAC8FF49E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.info; path = Info.plist; sourceTree = "<group>"; };
@@ -239,7 +237,6 @@
 			isa = PBXGroup;
 			children = (
 				58C7AAED6942E3BEAC8FF49E /* Info.plist */,
-				58C7A7F7261C7FF79054A2C3 /* WeatherAppViperUIKitUITests.swift */,
 			);
 			path = WeatherAppViperUIKitUITests;
 			sourceTree = "<group>";
@@ -422,7 +419,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				58C7AA4D231C2F609A06AE06 /* WeatherAppViperUIKitUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
