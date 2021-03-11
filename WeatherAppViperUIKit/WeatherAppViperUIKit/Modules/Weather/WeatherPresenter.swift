@@ -23,7 +23,11 @@ class WeatherPresenter: IWeatherPresenter {
     }
 
     func updateCurrentLocation(placeMark: CLPlacemark) {
-        view?.updateCurrentLocation(location: WeatherViewHelper.parseLocation(placeMark))
+        view?.updateCurrentLocation(location: WeatherViewHelper.prepareLocationContent(
+                locality: placeMark.locality,
+                administrativeArea: placeMark.administrativeArea,
+                country: placeMark.country
+        ))
     }
 
     func updateWeather(weatherForecast: WeatherForecast) {

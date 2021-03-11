@@ -2,23 +2,24 @@ import Foundation
 import CoreLocation
 
 class WeatherViewHelper {
-    static func parseLocation(_ placeMark: CLPlacemark) -> (String, String) {
+    static func prepareLocationContent(locality: String?, administrativeArea: String?, country: String?) -> (String, String) {
         var mainLocationString = ""
         var additionalLocationString = ""
 
-        if let locality = placeMark.locality, !locality.isEmpty {
+        if let locality = locality, !locality.isEmpty {
             mainLocationString = String(locality)
 
-            additionalLocationString = String(placeMark.administrativeArea ?? "")
+            additionalLocationString = administrativeArea ?? StringResources.locationDefaultString
 
-            if let country = placeMark.country {
+            if let country = country, !country.isEmpty {
                 additionalLocationString += ", \(country)"
             }
 
-        } else {
-            mainLocationString = String(placeMark.administrativeArea ?? StringResources.locationDefaultString)
 
-            if let country = placeMark.country {
+        } else {
+            mainLocationString = administrativeArea ?? StringResources.locationDefaultString
+
+            if let country = country, !country.isEmpty {
                 mainLocationString += ", \(country)"
             }
         }
