@@ -9,6 +9,8 @@ protocol IWeatherPresenter: IPresenter {
     func updateCurrentLocation(placeMark: CLPlacemark)
     func updateWeather(weatherForecast: WeatherForecast)
     func updateWeatherIcon(iconData: Data?)
+    func onGeneralError()
+    func onPermissionsNotGranted()
 }
 
 class WeatherPresenter: IWeatherPresenter {
@@ -25,8 +27,6 @@ class WeatherPresenter: IWeatherPresenter {
     }
 
     func updateWeather(weatherForecast: WeatherForecast) {
-        print(weatherForecast)
-
         let additionalWeatherParams = WeatherViewHelper.prepareTableContent(weatherForecast: weatherForecast)
 
         view?.updateWeather(
@@ -44,5 +44,13 @@ class WeatherPresenter: IWeatherPresenter {
         }
 
         view?.updateWeatherIcon(image: image)
+    }
+
+    func onGeneralError() {
+        view?.showAlert(title: "Oops...", message: "Seems some of the services are unavailable now.")
+    }
+
+    func onPermissionsNotGranted() {
+        view?.showAlert(title: "Location permissions denied", message: "Please check your location permission for the application in device Settings")
     }
 }

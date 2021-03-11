@@ -26,19 +26,11 @@ class WeatherInteraction: IWeatherInteraction, LocationServiceDelegate {
 
     func onLocationChangeSuccess(location: CLLocation) {
         getPlaceMarkByLocation(location)
-
-        do {
-            let weatherForecast = try weatherService.getWeatherForecastForLocation(location: location)
-            getCurrentWeatherIcon(weatherForecast)
-
-            presenter?.updateWeather(weatherForecast: weatherForecast)
-        } catch {
-            print("Weather service: \(error.localizedDescription)")
-        }
+        getWeatherForecastForLocation(location)
     }
 
     func onLocationChangeFail(error: ServiceError) {
-        print(error.message)
+        presenter?.onGeneralError()
     }
 
     func onGetPlaceMarkByLocationSuccess(placeMark: CLPlacemark) {
@@ -46,7 +38,22 @@ class WeatherInteraction: IWeatherInteraction, LocationServiceDelegate {
     }
 
     func onGetPlaceMarkByLocationFail(error: ServiceError) {
-        print(error.message)
+        presenter?.onGeneralError()
+    }
+
+    func onLocationPermissionsNotGranted() {
+        presenter?.onPermissionsNotGranted()
+    }
+
+    private func getWeatherForecastForLocation(_ location: CLLocation) {
+        do {
+            let weatherForecast = try weatherService.getWeatherForecastForLocation(location: location)
+            getCurrentWeatherIcon(weatherForecast)
+
+            presenter?.updateWeather(weatherForecast: weatherForecast)
+        } catch {
+            presenter?.onGeneralError()
+        }
     }
 
     private func getPlaceMarkByLocation(_ location: CLLocation) {

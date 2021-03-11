@@ -10,20 +10,23 @@ protocol IWeatherView: IView {
             additionalWeatherParams: [(String, String)]
     )
     func updateWeatherIcon(image: UIImage)
+    func showAlert(title: String, message: String)
 }
 
 class WeatherView: UIViewController, IWeatherView {
     var presenter: IWeatherPresenter?
-    private var locationContainer: UIView = UIView()
-    private var mainLocationLabel: UILabel = UILabel()
-    private var additionalLocationLabel: UILabel = UILabel()
+    private let locationContainer: UIView = UIView()
+    private let mainLocationLabel: UILabel = UILabel()
+    private let additionalLocationLabel: UILabel = UILabel()
 
-    private var currentWeatherContainer: UIView = UIView()
-    private var currentWeatherDescriptionLabel: UILabel = UILabel()
-    private var currentTemperatureLabel: UILabel = UILabel()
-    private var currentWeatherIcon: UIImageView = UIImageView()
+    private let currentWeatherContainer: UIView = UIView()
+    private let currentWeatherDescriptionLabel: UILabel = UILabel()
+    private let currentTemperatureLabel: UILabel = UILabel()
+    private let currentWeatherIcon: UIImageView = UIImageView()
 
     private let additionalWeatherParamsTable = WeatherTableView()
+    private var alert: UIAlertController? = nil
+
 
     override func loadView() {
         super.loadView()
@@ -67,6 +70,21 @@ class WeatherView: UIViewController, IWeatherView {
     func updateWeatherIcon(image: UIImage) {
         currentWeatherIcon.image = image
         currentWeatherIcon.isHidden = false
+    }
+
+    func showAlert(title: String, message: String) {
+        alert = UIAlertController(
+                title: title,
+                message: message,
+                preferredStyle: UIAlertController.Style.alert
+
+        )
+
+        alert!.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default) { [unowned self] action in
+            alert = nil
+        })
+
+        present(alert!, animated: true, completion: nil)
     }
 
     private func initView() {

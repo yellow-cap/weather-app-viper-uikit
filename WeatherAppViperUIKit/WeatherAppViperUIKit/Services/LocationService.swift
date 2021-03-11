@@ -7,6 +7,7 @@ protocol LocationServiceDelegate {
     func onLocationChangeFail(error: ServiceError)
     func onGetPlaceMarkByLocationSuccess(placeMark: CLPlacemark)
     func onGetPlaceMarkByLocationFail(error: ServiceError)
+    func onLocationPermissionsNotGranted()
 }
 
 protocol ILocationService {
@@ -31,13 +32,11 @@ class LocationService: NSObject, CLLocationManagerDelegate, ILocationService {
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         switch status {
         case .restricted:
-            onLocationChangeFail(error: ServiceError(
-                    message: "Location service: Access to location restricted.")
-            )
+            print("Location service: Access to location restricted.")
+            onLocationPermissionNotGranted()
         case .denied:
-            onLocationChangeFail(error: ServiceError(
-                    message: "Location service: Access to location denied.")
-            )
+            print("Location service: Access to location denied.")
+            onLocationPermissionNotGranted()
         case .notDetermined:
             locationManager.requestAlwaysAuthorization()
         case .authorizedAlways:
@@ -81,9 +80,8 @@ class LocationService: NSObject, CLLocationManagerDelegate, ILocationService {
             case .authorizedWhenInUse, .authorizedAlways:
                 locationManager.startUpdatingLocation()
             default:
-                onLocationChangeFail(error: ServiceError(
-                        message: "Location service: Access to location restricted. Check Location services settings.")
-                )
+               print("Location service: Access to location restricted. Check Location services settings.")
+                onLocationPermissionNotGranted()
             }
         } else {
             onLocationChangeFail(error: ServiceError(
@@ -157,5 +155,13 @@ class LocationService: NSObject, CLLocationManagerDelegate, ILocationService {
         }
 
         delegate.onGetPlaceMarkByLocationFail(error: error)
+    }
+
+    private func onLocationPermissionNotGranted() {
+        guard let delegate = delegate else {
+            return
+        }
+
+        delegate.onLocationPermissionsNotGranted()
     }
 }
