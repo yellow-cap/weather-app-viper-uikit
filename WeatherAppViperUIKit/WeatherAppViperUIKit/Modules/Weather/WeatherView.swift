@@ -42,12 +42,10 @@ class WeatherView: UIViewController, IWeatherView {
     func updateCurrentLocation(location: (String, String)) {
         if !location.0.isEmpty {
             mainLocationLabel.text = location.0
-            mainLocationLabel.isHidden = false
         }
 
         if !location.1.isEmpty {
             additionalLocationLabel.text = location.1
-            additionalLocationLabel.isHidden = false
         }
     }
 
@@ -58,18 +56,15 @@ class WeatherView: UIViewController, IWeatherView {
 
         if !description.isEmpty {
             currentWeatherDescriptionLabel.text = description
-            currentWeatherDescriptionLabel.isHidden = false
         }
 
         currentTemperatureLabel.text = temp
-        currentTemperatureLabel.isHidden = false
 
         additionalWeatherParamsTable.update(data: additionalWeatherParams)
     }
 
     func updateWeatherIcon(image: UIImage) {
         currentWeatherIcon.image = image
-        currentWeatherIcon.isHidden = false
     }
 
     func showAlert(title: String, message: String) {
@@ -90,22 +85,22 @@ class WeatherView: UIViewController, IWeatherView {
     private func initView() {
         mainLocationLabel.textAlignment = .center
         mainLocationLabel.font = UIFont.systemFont(ofSize: 32.0, weight: .regular)
-        mainLocationLabel.isHidden = true
+        mainLocationLabel.text = StringResources.locationDefaultString
 
         additionalLocationLabel.textAlignment = .center
         additionalLocationLabel.font = UIFont.systemFont(ofSize: 16.0, weight: .medium)
-        additionalLocationLabel.isHidden = true
+        additionalLocationLabel.text = StringResources.locationDefaultString
 
         currentWeatherDescriptionLabel.textAlignment = .center
         currentWeatherDescriptionLabel.font = UIFont.systemFont(ofSize: 24.0, weight: .medium)
-        currentWeatherDescriptionLabel.isHidden = true
+        currentWeatherDescriptionLabel.text = StringResources.conditionsDefaultString
 
         currentTemperatureLabel.textAlignment = .center
         currentTemperatureLabel.font = UIFont.systemFont(ofSize: 80.0, weight: .light)
-        currentTemperatureLabel.isHidden = true
+        currentTemperatureLabel.text = 0.0.toStringCelsius()
 
         currentWeatherIcon.frame = CGRect(x: 0, y: 0, width: 60, height: 60)
-        currentWeatherIcon.isHidden = true
+        currentWeatherIcon.image = UIImage(systemName: "cloud")!
     }
 
     private func placeView() {

@@ -14,4 +14,7 @@ class StringResources {
 
     static let alertRestrictionsTitle = NSLocalizedString("Location permissions denied.", comment: "Restriction alert title")
     static let alertRestrictionsMessage = NSLocalizedString("Please, check your location permission for the application in device Settings", comment: "Restriction alert message")
+
+    static let locationDefaultString = NSLocalizedString("Unknown", comment: "Location default string")
+    static let conditionsDefaultString = NSLocalizedString("Unknown conditions", comment: "Conditions default string")
 }
