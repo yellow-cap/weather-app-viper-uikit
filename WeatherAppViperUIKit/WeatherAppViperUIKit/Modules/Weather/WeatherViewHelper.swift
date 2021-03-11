@@ -28,6 +28,7 @@ class WeatherViewHelper {
     
     static func prepareTableContent(weatherForecast: WeatherForecast) -> [(String, String)] {
         let params = weatherForecast.current
+        let timeZone = TimeZone(secondsFromGMT: weatherForecast.timezone_offset)
 
         return [
             ("Feels like", params.feels_like.toStringCelsius()),
@@ -35,11 +36,11 @@ class WeatherViewHelper {
             ("Humidity", params.humidity.toStringPercents()),
             ("Sunrise", params.sunrise
                     .toDate()
-                    .getTimeString()
+                    .getTimeStringForeTimeZone(timeZone: timeZone!)
             ),
             ("Sunset", params.sunset
                     .toDate()
-                    .getTimeString()
+                    .getTimeStringForeTimeZone(timeZone: timeZone!)
             ),
             ("Visibility", Double(params.visibility).toStringKm()),
             ("Wind speed", params.wind_speed.toStringMetersPerSec())
