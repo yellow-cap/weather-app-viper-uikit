@@ -15,19 +15,17 @@ protocol IWeatherView: IView {
 
 class WeatherView: UIViewController, IWeatherView {
     var presenter: IWeatherPresenter?
-    private let locationContainer: UIView = UIView()
     private let mainLocationLabel: UILabel = UILabel()
     private let additionalLocationLabel: UILabel = UILabel()
 
-    private let currentWeatherContainer: UIView = UIView()
+    private let currentWeatherContainer = UIView()
     private let currentWeatherDescriptionLabel: UILabel = UILabel()
     private let currentTemperatureLabel: UILabel = UILabel()
     private let currentWeatherIcon: UIImageView = UIImageView()
 
     private let additionalWeatherParamsTable = WeatherTableView()
     private var alert: UIAlertController? = nil
-
-
+    
     override func loadView() {
         super.loadView()
         initView()
@@ -90,7 +88,7 @@ class WeatherView: UIViewController, IWeatherView {
 
         additionalLocationLabel.textAlignment = .center
         additionalLocationLabel.font = UIFont.systemFont(ofSize: 16.0, weight: .medium)
-        additionalLocationLabel.isHidden = true
+        additionalLocationLabel.text = StringResources.locationDefaultString
 
         currentWeatherDescriptionLabel.textAlignment = .center
         currentWeatherDescriptionLabel.font = UIFont.systemFont(ofSize: 24.0, weight: .medium)
@@ -100,89 +98,76 @@ class WeatherView: UIViewController, IWeatherView {
         currentTemperatureLabel.font = UIFont.systemFont(ofSize: 80.0, weight: .light)
         currentTemperatureLabel.text = 0.0.toStringCelsius()
 
-        currentWeatherIcon.frame = CGRect(x: 0, y: 0, width: 60, height: 60)
-        currentWeatherIcon.image = UIImage(systemName: "cloud")!
+        currentWeatherIcon.frame = CGRect(x: 0, y: 0, width: 80, height: 80)
+        currentWeatherIcon.image = UIImage(named: "DefaultWeatherImage")!
     }
 
     private func placeView() {
-        placeLocationContainer()
-        placeCurrentWeatherContainer()
+        placeLocation()
+        placeWeather()
         placeAdditionalWeatherParamsTable()
     }
 
-    private func placeLocationContainer() {
-        locationContainer.addSubview(mainLocationLabel)
-        locationContainer.addSubview(additionalLocationLabel)
+    private func placeLocation() {
+        view.addSubview(mainLocationLabel)
+        view.addSubview(additionalLocationLabel)
 
-        view.addSubview(locationContainer)
-
-        locationContainer.translatesAutoresizingMaskIntoConstraints = false
         mainLocationLabel.translatesAutoresizingMaskIntoConstraints = false
         additionalLocationLabel.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            locationContainer.leadingAnchor.constraint(
+            mainLocationLabel.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 80),
+            mainLocationLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            mainLocationLabel.leadingAnchor.constraint(
                     greaterThanOrEqualTo: view.layoutMarginsGuide.leadingAnchor,
-                    constant: 20
-            ),
-            locationContainer.trailingAnchor.constraint(
+                    constant: 20),
+            mainLocationLabel.trailingAnchor.constraint(
                     greaterThanOrEqualTo: view.layoutMarginsGuide.trailingAnchor,
-                    constant: -20
-            ),
-            locationContainer.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 80),
-            locationContainer.bottomAnchor.constraint(equalTo: additionalLocationLabel.bottomAnchor),
-            locationContainer.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-
-            mainLocationLabel.centerXAnchor.constraint(equalTo: locationContainer.centerXAnchor),
-            mainLocationLabel.leadingAnchor.constraint(equalTo: locationContainer.leadingAnchor),
-            mainLocationLabel.trailingAnchor.constraint(equalTo: locationContainer.trailingAnchor),
+                    constant: -20),
 
             additionalLocationLabel.topAnchor.constraint(equalTo: mainLocationLabel.bottomAnchor),
-            additionalLocationLabel.centerXAnchor.constraint(equalTo: locationContainer.centerXAnchor),
-            additionalLocationLabel.leadingAnchor.constraint(equalTo: locationContainer.leadingAnchor),
-            additionalLocationLabel.trailingAnchor.constraint(equalTo: locationContainer.trailingAnchor)
+            additionalLocationLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            additionalLocationLabel.leadingAnchor.constraint(
+                    greaterThanOrEqualTo: view.layoutMarginsGuide.leadingAnchor,
+                    constant: 20),
+            additionalLocationLabel.trailingAnchor.constraint(
+                    greaterThanOrEqualTo: view.layoutMarginsGuide.trailingAnchor,
+                    constant: -20),
         ])
     }
 
-    private func placeCurrentWeatherContainer() {
-        let innerContainer = UIView()
-
-        currentWeatherContainer.addSubview(currentWeatherDescriptionLabel)
-        innerContainer.addSubview(currentTemperatureLabel)
-        innerContainer.addSubview(currentWeatherIcon)
-        currentWeatherContainer.addSubview(innerContainer)
+    private func placeWeather() {
+        view.addSubview(currentWeatherDescriptionLabel)
+        currentWeatherContainer.addSubview(currentTemperatureLabel)
+        currentWeatherContainer.addSubview(currentWeatherIcon)
         view.addSubview(currentWeatherContainer)
 
-        currentWeatherContainer.translatesAutoresizingMaskIntoConstraints = false
         currentWeatherDescriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         currentTemperatureLabel.translatesAutoresizingMaskIntoConstraints = false
-        innerContainer.translatesAutoresizingMaskIntoConstraints = false
+        currentWeatherContainer.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            currentWeatherContainer.leadingAnchor.constraint(
+            currentWeatherDescriptionLabel.leadingAnchor.constraint(
                     greaterThanOrEqualTo: view.layoutMarginsGuide.leadingAnchor,
                     constant: 20
             ),
-            currentWeatherContainer.trailingAnchor.constraint(
+            currentWeatherDescriptionLabel.trailingAnchor.constraint(
                     greaterThanOrEqualTo: view.layoutMarginsGuide.trailingAnchor,
                     constant: -20
             ),
 
-            currentWeatherContainer.topAnchor.constraint(equalTo: locationContainer.bottomAnchor, constant: 24),
-            currentWeatherContainer.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            currentWeatherDescriptionLabel.topAnchor.constraint(equalTo: additionalLocationLabel.bottomAnchor, constant: 24),
+            currentWeatherDescriptionLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
 
-            currentWeatherDescriptionLabel.centerXAnchor.constraint(equalTo: currentWeatherContainer.centerXAnchor),
-            currentWeatherDescriptionLabel.leadingAnchor.constraint(equalTo: currentWeatherContainer.leadingAnchor),
-            currentWeatherDescriptionLabel.trailingAnchor.constraint(equalTo: currentWeatherDescriptionLabel.trailingAnchor),
+            currentWeatherContainer.topAnchor.constraint(equalTo: currentWeatherDescriptionLabel.bottomAnchor, constant: 20),
+            currentWeatherContainer.centerXAnchor.constraint(equalTo: currentWeatherDescriptionLabel.centerXAnchor),
+            currentWeatherContainer.heightAnchor.constraint(equalToConstant: 80),
 
-            innerContainer.topAnchor.constraint(equalTo: currentWeatherDescriptionLabel.bottomAnchor, constant: 20),
-            innerContainer.centerXAnchor.constraint(equalTo: currentWeatherDescriptionLabel.centerXAnchor),
-
-            currentWeatherIcon.leadingAnchor.constraint(equalTo: innerContainer.leadingAnchor),
+            currentWeatherIcon.leadingAnchor.constraint(equalTo: currentWeatherContainer.leadingAnchor),
             currentWeatherIcon.centerYAnchor.constraint(equalTo: currentTemperatureLabel.centerYAnchor),
 
             currentTemperatureLabel.leadingAnchor.constraint(equalTo: currentWeatherIcon.trailingAnchor),
-            currentTemperatureLabel.trailingAnchor.constraint(equalTo: innerContainer.trailingAnchor)
+            currentTemperatureLabel.trailingAnchor.constraint(equalTo: currentWeatherContainer.trailingAnchor)
         ])
     }
 
@@ -194,7 +179,7 @@ class WeatherView: UIViewController, IWeatherView {
         NSLayoutConstraint.activate([
             additionalWeatherParamsTable.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             additionalWeatherParamsTable.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            additionalWeatherParamsTable.topAnchor.constraint(equalTo: view.topAnchor, constant: 320),
+            additionalWeatherParamsTable.topAnchor.constraint(equalTo: currentWeatherContainer.bottomAnchor),
             additionalWeatherParamsTable.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
