@@ -64,12 +64,17 @@ class LocationService: NSObject, CLLocationManagerDelegate, ILocationService {
     }
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        locationManager.stopUpdatingLocation()
+        switch manager.authorizationStatus {
+        case .notDetermined, .restricted, .denied:
+            return
+        default:
+            locationManager.stopUpdatingLocation()
 
-        onLocationChangeFail(
-                error: ServiceError(
-                        message: "Location service: Couldn't get current location \(error.localizedDescription)")
-        )
+            onLocationChangeFail(
+                    error: ServiceError(
+                            message: "Location service: Couldn't get current location \(error.localizedDescription)")
+            )
+        }
     }
 
     func checkLocationServicesPermission() {
@@ -138,6 +143,7 @@ class LocationService: NSObject, CLLocationManagerDelegate, ILocationService {
             return
         }
 
+        print("Location service error: \(error.message)")
         delegate.onLocationChangeFail(error: error)
     }
 
