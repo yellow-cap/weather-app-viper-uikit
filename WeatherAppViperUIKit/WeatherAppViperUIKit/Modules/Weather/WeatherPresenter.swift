@@ -42,7 +42,7 @@ class WeatherPresenter: IWeatherPresenter {
 
     func updateWeatherIcon(iconData: Data?) {
         guard let iconData = iconData, let image = UIImage(data: iconData) else {
-            view?.updateWeatherIcon(image: UIImage(systemName: "cloud")!)
+            view?.updateWeatherIcon(image: UIImage(named: "DefaultWeatherImage")!)
 
             return
         }
