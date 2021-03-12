@@ -85,21 +85,28 @@ class WeatherView: UIViewController, IWeatherView {
         mainLocationLabel.textAlignment = .center
         mainLocationLabel.font = UIFont.systemFont(ofSize: 32.0, weight: .regular)
         mainLocationLabel.text = StringResources.locationDefaultString
+        mainLocationLabel.accessibilityIdentifier = "main_location_label"
 
         additionalLocationLabel.textAlignment = .center
         additionalLocationLabel.font = UIFont.systemFont(ofSize: 16.0, weight: .medium)
         additionalLocationLabel.text = StringResources.locationDefaultString
+        additionalLocationLabel.accessibilityIdentifier = "additional_location_label"
 
         currentWeatherDescriptionLabel.textAlignment = .center
         currentWeatherDescriptionLabel.font = UIFont.systemFont(ofSize: 24.0, weight: .medium)
         currentWeatherDescriptionLabel.text = StringResources.conditionsDefaultString
+        currentWeatherDescriptionLabel.accessibilityIdentifier = "current_weather_description_label"
 
         currentTemperatureLabel.textAlignment = .center
         currentTemperatureLabel.font = UIFont.systemFont(ofSize: 80.0, weight: .light)
         currentTemperatureLabel.text = 0.0.toStringCelsius()
+        currentTemperatureLabel.accessibilityIdentifier = "current_temperature_label"
 
         currentWeatherIcon.frame = CGRect(x: 0, y: 0, width: 80, height: 80)
         currentWeatherIcon.image = UIImage(named: "DefaultWeatherImage")!
+        currentWeatherIcon.accessibilityIdentifier = "current_weather_icon"
+
+        additionalWeatherParamsTable.accessibilityIdentifier = "additional_weather_params_table"
     }
 
     private func placeView() {
