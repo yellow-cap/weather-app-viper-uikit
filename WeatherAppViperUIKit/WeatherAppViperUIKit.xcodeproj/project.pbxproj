@@ -386,6 +386,11 @@
 		58C7AF96083C623E609AA89C /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				TargetAttributes = {
+					58C7A4FACBB175C50C63C32F = {
+						DevelopmentTeam = KA3NJF7MTD;
+					};
+				};
 			};
 			buildConfigurationList = 58C7A21DC8C57F90D2995F45 /* Build configuration list for PBXProject "WeatherAppViperUIKit" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -533,6 +538,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				DEVELOPMENT_TEAM = KA3NJF7MTD;
 				INFOPLIST_FILE = WeatherAppViperUIKit/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "artem-chernousov.WeatherAppViperUIKit";
@@ -702,6 +708,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				DEVELOPMENT_TEAM = KA3NJF7MTD;
 				INFOPLIST_FILE = WeatherAppViperUIKit/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "artem-chernousov.WeatherAppViperUIKit";
